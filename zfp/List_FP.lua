@@ -1,4 +1,9 @@
 local List = { }
+ __ = 0
+ local infunc = function(str)
+     load("__ = "..str)()
+     return __
+ end
 List.new = function(...)
     local _list = { }
     _list._ = {...}
@@ -33,7 +38,7 @@ List.new = function(...)
     _list.map = function(self, func)
         local newList = List.new()
         for k, v in ipairs(self._) do
-            table.insert(newList._, func(v))
+            table.insert(newList._, infunc(v))
         end
         return newList
     end

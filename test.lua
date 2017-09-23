@@ -1,5 +1,5 @@
 local List = require("zfp/List_FP")
-local new1 = List.new(1, 3, 4, 5):map( function(a) return a * 2 end)
+local new1 = List.new(1, 3, 4, 5):map("__ * 2")
 local new2 = List.new(1, 9, 7, 3, 4, 5)
 local qSort
 qSort = function(list)
