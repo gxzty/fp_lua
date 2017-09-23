@@ -1,8 +1,4 @@
 local List = { }
-local loadstring = loadstring
-local runFunc = function(str, _)
-	return loadstring(str)
-end
 List.new = function(...)
     local _list = { }
     _list._ = {...}
