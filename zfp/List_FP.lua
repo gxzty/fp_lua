@@ -49,12 +49,35 @@ List.new = function(...)
             func(self._[i])
         end
     end
+	_list.flatten = function(self)
+		local newList = List.new()
+		for k, v in ipairs(self._) do
+			if (type(v) == "table") then
+				local _newList = v:flatten()
+				for _k, _v in ipairs(_newList) do
+					table.insert(newList._, _v)
+				end
+			else
+				table.insert(newList._, v)
+			end
+		end
+		return newList
+	end
+	_list.sort = function(self)
+        if (#self < 2) then
+            return self
+        else
+            return _list.sort(self:filter( function(a) return a < self:head() end))
+            + self:filter( function(a) return a == self:head() end)
+            + _list.sort(self:filter( function(a) return a > self:head() end))
+        end
+	end
     local metatable = { }
     metatable.__add = function(self, other)
         return List.new():push(self._):push(other._)
     end
     metatable.__tostring = function(self)
-        return self:reduce( function(a, b) return a .. "," .. b end)
+        return self:reduce( function(a, b) return tostring(a) .. "," .. tostring(b) end)
     end
     metatable.__index = function(self,index)
         return self._[index]
