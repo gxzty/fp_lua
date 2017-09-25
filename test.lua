@@ -1,23 +1,30 @@
+local p = require("zfp/utils/print").indexPrint
 local List = require("zfp/List_FP")
 local new1 = List.new(1, 3, 4, 5):map("__ * 2")
 local new2 = List.new(1, 9, 7, 3, 4, 5)
-local qSort
-qSort = function(list)
-    if (list:length() < 2) then
-        return list
-    else
-        return qSort(list:filter( function(a) return a < list:head() end))
-        + list:filter( function(a) return a == list:head() end)
-        + qSort(list:filter( function(a) return a > list:head() end))
-    end
-end
-local new3 = qSort(new1 + new2)
-local new4 = new3:reduce( function(a, b) return a + b end)
-print("====new1 map====")
+local new3 = new1 + new2
+local new4 = new3:sort()
+local new5 = new4:reduce( function(a, b) return a + b end)
+local new6 = List.new(List.new(-1,-2,List.new(-3,0,List.new(1,2,3,4),3),-4,-5),List.new(1,2,3,4,5))
+local new7 = new6:flatten()
+
+p("map")
 new1:toString()
-print("====new2 foreach====")
+
+p("foreach")
 new2:foreach(print)
-print("====new3 qSort====")
-new3:toString()
-print("====new4 reduce====")
+
+p("add")
+print(new3)
+
+p("sort")
 print(new4)
+
+p("reduce")
+print(new5)
+
+p("nest")
+print(new6[1][3][3])
+
+p("flatten")
+print(new7[16])
