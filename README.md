@@ -8,3 +8,4 @@
  - foreach
  - reduce
  - nest && flatten
+ - invert
