@@ -13,7 +13,7 @@ M.register = function(timeName)
 end
 
 M.stop = function(timeName)
-	timeList[timeName]
+--	timeList[timeName]
 end
 
 return M
