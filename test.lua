@@ -1,5 +1,4 @@
 local p = require("zfp/utils/print").indexPrint
-local time = require("zfp/utils/time")
 local List = require("zfp/List_FP")
 local new1 = List.new(1, 3, 4, 5):map(function(a) return a * 2 end)
 local new2 = List.new(1, 9, 7, 3, 4, 5)
