@@ -1,9 +1,5 @@
 local List = { }
- __ = 0
- local infunc = function(str)
-     load("__ = "..str)()
-     return __
- end
+local tInsert = table.insert
 List.new = function(...)
     local _list = { }
     _list._ = {...}
@@ -18,10 +14,10 @@ List.new = function(...)
     end
     _list.push = function(self, data)
         if (type(data) ~= "table") then
-            table.insert(self._, data)
+            tInsert(self._, data)
         else
             for k, v in ipairs(data) do
-                table.insert(self._, v)
+                tInsert(self._, v)
             end
         end
         return self
@@ -38,7 +34,7 @@ List.new = function(...)
     _list.map = function(self, func)
         local newList = List.new()
         for k, v in ipairs(self._) do
-            table.insert(newList._, infunc(v))
+            tInsert(newList._, func(v))
         end
         return newList
     end
@@ -60,10 +56,10 @@ List.new = function(...)
 			if (type(v) == "table") then
 				local _newList = v:flatten()
 				for _k, _v in ipairs(_newList) do
-					table.insert(newList._, _v)
+					tInsert(newList._, _v)
 				end
 			else
-				table.insert(newList._, v)
+				tInsert(newList._, v)
 			end
 		end
 		return newList
@@ -76,6 +72,14 @@ List.new = function(...)
             + self:filter( function(a) return a == self:head() end)
             + _list.sort(self:filter( function(a) return a > self:head() end))
         end
+	end
+
+	_list.invert = function(self)
+		local newList = List.new()
+		for k, v in ipairs(self._) do
+			tInsert(newList._, 1, v)
+		end
+		return newList
 	end
     local metatable = { }
     metatable.__add = function(self, other)
