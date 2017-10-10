@@ -9,3 +9,4 @@
  - reduce
  - nest && flatten
  - invert
+ - wrap
